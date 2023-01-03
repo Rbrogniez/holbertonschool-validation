@@ -1,7 +1,12 @@
+HUGO=hugo
+RM=rm -rf
+
 build:
-	@hugo
-clean:
-	rm -rf dist/*
+	$(HUGO)
+
 post:
-	hugo new ./content/posts/$(POST_NAME).md
-	sed -i '/title:*/c\title: "$(POST_TITLE)"' ./content/posts/$(POST_NAME).md
+	$(HUGO) new posts/$(POST_NAME).md
+	echo '# $(POST_TITLE)' >> ./content/posts/$(POST_NAME).md
+
+clean:
+	$(RM) dist/*
