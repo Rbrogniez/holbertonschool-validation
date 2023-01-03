@@ -1,10 +1,10 @@
 build:
-    hugo -s . -d dist/
+	hugo -s . -d dist/
 
 clean:
-    rm -rf dist/
+	rm -rf dist/
 
 post:
-    hugo new post/$(POST_NAME).md
+	hugo new post/$(POST_NAME).md
 
 .PHONY: build clean post
