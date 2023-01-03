@@ -1,12 +1,8 @@
-HUGO=hugo
-RM=rm -rf
-
 build:
-	$(HUGO)
-
-post:
-	$(HUGO) new posts/$(POST_NAME).md
-	echo '# $(POST_TITLE)' >> ./content/posts/$(POST_NAME).md
+	hugo -s . -d dist/
 
 clean:
-	$(RM) dist/*
+	rm -rf dist/
+
+post:
+	hugo new post/$(POST_NAME).md
