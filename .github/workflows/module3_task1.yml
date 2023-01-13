@@ -8,6 +8,7 @@ on:
     # trigger each push event
     branches:
       - main
+      - master
 
 jobs:
   module3_task1:
