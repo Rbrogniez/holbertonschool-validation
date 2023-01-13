@@ -1,0 +1,42 @@
+---
+name: module3_task1
+on:
+  schedule:
+    # workflow triggered each day
+    - cron: '30 5 * * *'
+  push:
+    # trigger each push event
+    branches:
+      - main
+
+jobs:
+  module3_task1:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: checkout the repository
+        uses: actions/checkout@v3
+      # Run the setup.sh to install missing tools
+      - name: Setup environment
+        run: |
+          cd module3_task1/
+          sudo ./setup.sh
+      # To use the makefile
+      - name: Build
+        run: |
+          cd module3_task1
+          make build
+      - name: Create post
+        env:
+          POST_NAME: my-post
+          POST_TITLE: My Post
+        run: |
+          cd module3_task1
+          make post
+      - name: yaml-lint
+        run: |
+          cd module3_task1
+          make lint
+      - name: clean up the dist
+        run: |
+          cd module3_task1
+          make clean
