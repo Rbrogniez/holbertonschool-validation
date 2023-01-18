@@ -1,0 +1,37 @@
+---
+name: release_drafter
+on:
+  schedule:
+    # workflow triggered each day
+    - cron: '30 5 * * *'
+  push:
+    # trigger each push event
+    branches:
+      - main
+      - master
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  release_drafter:
+    runs-on: ubuntu-18.04
+    permissions:
+      # write permission is required to create a github release
+      contents: write
+      # write permission is required for autolabeler
+      # otherwise, read permission is required at least
+      pull-requests: write
+    steps:
+      # (Optional) GitHub Enterprise requires GHE_HOST variable set
+      # - name: Set GHE_HOST
+      #  run: |
+      #    echo "GHE_HOST=${GITHUB_SERVER_URL##https:\/\/}" >> $GITHUB_ENV
+
+      # Drafts your next Release notes as Pull Requests are merged into "master"
+      - uses: release-drafter/release-drafter@v5
+        # (Optional) specify config
+        # with:
+        #   config-name: my-config.yml
+        #   disable-autolabeler: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
